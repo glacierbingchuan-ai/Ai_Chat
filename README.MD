@@ -3,7 +3,12 @@
 
 核心说明：不同于机械回复，可像现实女友一样记住聊天细节，自然主动开启互动。
 
-交流群：<button onclick="window.open('http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=1pOX2q6gKl41GttJcuXDoCuBVlEhWNTS&authKey=PI7D%2FlEFqlD%2B6zLjE7FCTbzsVBig%2BWMy5rCHAlQOIpsRsUZKCA%2FOYzBDzzUA%2FAaf&noverify=0&group_code=1071354740', '_blank')">点击加入交流群</button> **QQ群号：1071354740**
+<a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=1pOX2q6gKl41GttJcuXDoCuBVlEhWNTS&authKey=PI7D%2FlEFqlD%2B6zLjE7FCTbzsVBig%2BWMy5rCHAlQOIpsRsUZKCA%2FOYzBDzzUA%2FAaf&noverify=0&group_code=1071354740" 
+   target="_blank" 
+   style="display: inline-block; padding: 6px 16px; background: #12b7f5; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; border: none; cursor: pointer;">
+   点击加入交流群
+</a>
+**QQ群号：1071354740**
 
 ---
 
@@ -103,4 +108,5 @@ AI_Chat/
 ---
 
 ## 📮 版本更新日志
+
 v1.0.0（正式版）：实现核心情侣互动、人设定制、多模态表达及可视化配置等全部核心功能。
