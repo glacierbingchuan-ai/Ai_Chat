@@ -1,0 +1,4 @@
+[6:42:08] [INFO] [SYSTEM] ==================== APPLICATION STARTUP ====================
+[6:42:08] [INFO] [SYSTEM] Mode: Message Fusion | Interruption Cleanup | Persistent Dual-Logging | Self-Correction
+[6:42:10] [INFO] [WS_CLIENT] Attempting connection to WebSocket server: ws://localhost:3000
+[6:42:12] [INFO] [WS_CLIENT] Connection established. Inbound message listener activated.

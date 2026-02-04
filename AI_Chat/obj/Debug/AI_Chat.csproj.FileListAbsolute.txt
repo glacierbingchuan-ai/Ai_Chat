@@ -1,0 +1,50 @@
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\bin\Debug\AI_Chat.exe.config
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\bin\Debug\AI_Chat.exe
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\bin\Debug\AI_Chat.pdb
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\bin\Debug\Newtonsoft.Json.dll
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\bin\Debug\Newtonsoft.Json.xml
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\obj\Debug\AI_Chat.csproj.AssemblyReference.cache
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\obj\Debug\AI_Chat.csproj.CoreCompileInputs.cache
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\obj\Debug\AI_Chat.csproj.Up2Date
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\obj\Debug\AI_Chat.exe
+C:\Users\39179\source\repos\AI_Chat\AI_Chat\obj\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\AI\AI_Chat\bin\Debug\AI_Chat.exe.config
+C:\Users\39179\Desktop\AI\AI_Chat\bin\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\AI\AI_Chat\bin\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\AI\AI_Chat\bin\Debug\Newtonsoft.Json.dll
+C:\Users\39179\Desktop\AI\AI_Chat\bin\Debug\Newtonsoft.Json.xml
+C:\Users\39179\Desktop\AI\AI_Chat\obj\Debug\AI_Chat.csproj.AssemblyReference.cache
+C:\Users\39179\Desktop\AI\AI_Chat\obj\Debug\AI_Chat.csproj.CoreCompileInputs.cache
+C:\Users\39179\Desktop\AI\AI_Chat\obj\Debug\AI_Chat.csproj.Up2Date
+C:\Users\39179\Desktop\AI\AI_Chat\obj\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\AI\AI_Chat\obj\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\bin\Debug\AI_Chat.exe.config
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\bin\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\bin\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\bin\Debug\Newtonsoft.Json.dll
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\bin\Debug\Newtonsoft.Json.xml
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\obj\Debug\AI_Chat.csproj.AssemblyReference.cache
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\obj\Debug\AI_Chat.csproj.CoreCompileInputs.cache
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\obj\Debug\AI_Chat.csproj.Up2Date
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\obj\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\AI - 副本\AI_Chat\obj\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\bin\Debug\AI_Chat.exe.config
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\bin\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\bin\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\bin\Debug\Newtonsoft.Json.dll
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\bin\Debug\Newtonsoft.Json.xml
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\obj\Debug\AI_Chat.csproj.AssemblyReference.cache
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\obj\Debug\AI_Chat.csproj.CoreCompileInputs.cache
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\obj\Debug\AI_Chat.csproj.Up2Date
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\obj\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\NEw_AI\AI_Chat\obj\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\bin\Debug\AI_Chat.exe.config
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\bin\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\bin\Debug\AI_Chat.pdb
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\bin\Debug\Newtonsoft.Json.dll
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\bin\Debug\Newtonsoft.Json.xml
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\obj\Debug\AI_Chat.csproj.AssemblyReference.cache
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\obj\Debug\AI_Chat.csproj.CoreCompileInputs.cache
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\obj\Debug\AI_Chat.csproj.Up2Date
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\obj\Debug\AI_Chat.exe
+C:\Users\39179\Desktop\NEw_AI - 副本\AI_Chat\obj\Debug\AI_Chat.pdb
