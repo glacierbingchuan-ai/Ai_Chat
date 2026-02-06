@@ -15,6 +15,9 @@
 ## 📖 项目简介
 AI_Chat 是基于 WebSocket + LLM 技术开发的恋爱向AI女友聊天机器人，核心是还原现实情侣日常互动，支持自定义AI人设，打造专属恋爱搭子，提供沉浸式情侣聊天体验。
 
+- 部署教程：https://www.bilibili.com/video/BV1noFBzZEpD/?spm_id_from=333.337.search-card.all.click&vd_source=33af0efdf7b9a7239c20a467129c48d4
+- 效果演示视频：https://www.bilibili.com/video/BV1gsfZBbE4F/?spm_id_from=333.337.search-card.all.click&vd_source=33af0efdf7b9a7239c20a467129c48d4
+
 ---
 
 ## ✨ 核心功能
@@ -114,6 +117,7 @@ AI_Chat/
 - v1.0.0（正式版）：实现核心情侣互动、人设定制、多模态表达及可视化配置等全部核心功能。
 - v1.0.1（正式版）：修复了前端修改API密钥后端不会更新的问题
 - v1.0.2（正式版）：修复了一点小BUG，添加了清空上下文按钮
+
 
 
 
