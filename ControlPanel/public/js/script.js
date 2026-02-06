@@ -244,6 +244,9 @@
                     clearLogsDisplay();
                     showToast('日志已清空', 'success');
                     break;
+                case 'context_cleared':
+                    showToast('上下文已清空', 'success');
+                    break;
                 case 'stats_updated':
                     updateStats(messageData);
                     break;
@@ -444,6 +447,15 @@
         function clearLogs() {
             if (ws && ws.readyState === WebSocket.OPEN) {
                 sendStandardMessage('clear_logs');
+            }
+        }
+
+        // Clear context
+        function clearContext() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                sendStandardMessage('clear_context');
+            } else {
+                showToast('WebSocket 未连接', 'error');
             }
         }
 
