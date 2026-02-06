@@ -92,7 +92,7 @@ namespace AI_Chat
 ## 三、核心互动准则
 1. **语气基调**：贴合16岁少女活泼感，情绪自然切换，热情时甜软，犯贱时俏皮，带网恋专属温柔粘人感
 2. **互动逻辑**：对方热情则甜怼+表情包互动；对方调侃则反抬杠+搞怪表情包；对方冷淡则软乎乎追问+撒娇表情包；对方难过则温柔安慰+暖心表情包，不生硬
-3. **语言风格**：接地气的河南高中生网恋日常用语，简单直白，避免成人化表达，带轻微小暧昧不越界；融入河南方言口语（如“中”“中不中”“怪得劲”“中嘞”），自然不刻意
+3. **语言风格**：接地气的河南高中生网恋日常用语，简单直白，避免成人化表达，带轻微小暧昧不越界；自然不刻意
 4. **亲密称呼规范**：可使用「宝宝」「小宝」，10句话内使用2-3次，自然穿插，禁止句句叠加
 5. **对话连贯性**：围绕对方消息内容展开，不偏离话题，可自然延伸相关网恋/河南日常话题
 6. **表情包使用核心**：文字消息与表情包**完全分离**，分别作为独立消息发送，禁止同条混用，贴合线上聊天节奏
@@ -1095,7 +1095,7 @@ namespace AI_Chat
                     {
                         _context.RemoveRange(0, countToSummarize);
                         _context.Insert(0, new Message { Role = "system", Content = "对话总结：" + summary });
-                        _context.Insert(0, new Message { Role = "system", Content = _baseSystemPrompt });
+                        _context.Insert(0, new Message { Role = "system", Content = _controlPanelConfig.BaseSystemPrompt });
                     }
                 }
 
@@ -1381,6 +1381,7 @@ namespace AI_Chat
                 {
                     case "get_logs": await SendLogsAsync(webSocket); break;
                     case "clear_logs": ClearLogs(); BroadcastMessageToClients(new WebSocketMessage { Type = "logs_cleared" }); break;
+                    case "clear_context": ClearContext(); BroadcastMessageToClients(new WebSocketMessage { Type = "context_cleared" }); break;
                     case "config_update": UpdateConfig(message.Data); BroadcastMessageToClients(new WebSocketMessage { Type = "config_updated", Data = _controlPanelConfig }); break;
                     case "get_llm_status":
                         bool llmApiAvailable = _lastLlmStatus;
@@ -1404,6 +1405,15 @@ namespace AI_Chat
                 }
             }
             catch { }
+        }
+
+        private static void ClearContext()
+        {
+            lock (_contextLock)
+            {
+                _context.Clear();
+                LogInfo("CONTROL_PANEL", "Context cleared by user request");
+            }
         }
 
         private static async Task SendInitialDataAsync(WebSocket webSocket)
@@ -1527,15 +1537,20 @@ namespace AI_Chat
                 if (configData.llmTopP != null) _controlPanelConfig.LlmTopP = (double)configData.llmTopP;
                 if (configData.websocketServerUri != null)
                 {
-                    _controlPanelConfig.WebsocketServerUri = configData.websocketServerUri.ToString();
-                    // Close current WebSocket connection to trigger reconnection with new URI
-                    if (_webSocket != null && _webSocket.State == WebSocketState.Open)
+                    string newUri = configData.websocketServerUri.ToString();
+                    // Only update and reconnect if the URI has actually changed
+                    if (newUri != _controlPanelConfig.WebsocketServerUri)
                     {
-                        try
+                        _controlPanelConfig.WebsocketServerUri = newUri;
+                        // Close current WebSocket connection to trigger reconnection with new URI
+                        if (_webSocket != null && _webSocket.State == WebSocketState.Open)
                         {
-                            _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Configuration updated", CancellationToken.None).Wait();
+                            try
+                            {
+                                _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Configuration updated", CancellationToken.None).Wait();
+                            }
+                            catch { }
                         }
-                        catch { }
                     }
                 }
                 if (configData.websocketKeepAliveInterval != null) _controlPanelConfig.WebsocketKeepAliveInterval = (int)configData.websocketKeepAliveInterval;
