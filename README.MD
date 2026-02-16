@@ -20,8 +20,8 @@ AI_Chat 是基于 WebSocket + LLM 技术开发的恋爱向AI女友聊天机器�
 
 ---
 
--角色卡数据源搭建教程：https://github.com/glacierbingchuan-ai/Character_Cards/tree/main
--插件开发教程：https://github.com/glacierbingchuan-ai/AI_Chat_Plugins
+- 角色卡数据源搭建教程：https://github.com/glacierbingchuan-ai/Character_Cards/tree/main
+- 插件开发教程：https://github.com/glacierbingchuan-ai/AI_Chat_Plugins
 
 ---
 
@@ -125,6 +125,7 @@ AI_Chat/
 - v1.1.0（正式版）：修复了很多小BUG，支持上下文持久化，优化控制面板UI
 - v1.1.3（正式版）：支持ws协议端设置token，新增角色卡广场(可自己搭建角色卡数据源，如果你有好玩的角色卡，也可以加入交流群联系我上传到角色卡广场)，新增聊天记录气泡显示，解决了很多小问题
 - v1.2.0（正式版）：支持插件广场，支持自定义插件，修复各种BUG，优化UI，埋了两个小彩蛋
+
 
 
 
