@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问被拒绝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 50%, #1a202c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景动画元素 */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(80, 200, 120, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(155, 89, 182, 0.08) 0%, transparent 40%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(-10%, -10%) rotate(0deg); }
+            50% { transform: translate(0%, 0%) rotate(5deg); }
+        }
+
+        /* 浮动圆圈 */
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(80, 200, 120, 0.1));
+            filter: blur(1px);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -50px;
+            animation-delay: -5s;
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15), rgba(74, 144, 226, 0.1));
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 10%;
+            animation-delay: -10s;
+            background: linear-gradient(135deg, rgba(80, 200, 120, 0.15), rgba(74, 144, 226, 0.1));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(5deg); }
+            66% { transform: translateY(20px) rotate(-5deg); }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px 50px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 错误图标 */
+        .error-icon-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.4),
+                        0 0 0 4px rgba(231, 76, 60, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(231, 76, 60, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 50px rgba(231, 76, 60, 0.6); }
+        }
+
+        .error-icon::before {
+            content: '🔒';
+            filter: grayscale(100%) brightness(2);
+        }
+
+        /* 状态指示器 */
+        .status-indicator {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            border: 3px solid rgba(30, 35, 45, 0.9);
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 标题 */
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        /* 描述文字 */
+        .description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .description:last-of-type {
+            margin-bottom: 32px;
+        }
+
+        /* 分隔线 */
+        .divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            border-radius: 2px;
+            margin: 0 auto 32px;
+        }
+
+        /* 信息卡片 */
+        .info-card {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .info-card-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* 操作按钮 */
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .error-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="container">
+        <div class="error-icon-wrapper">
+            <div class="error-icon"></div>
+            <div class="status-indicator"></div>
+        </div>
+
+        <h1>访问被拒绝</h1>
+
+        <p class="description">当前链接无效或已经过期</p>
+        <p class="description">请使用新的控制面板链接访问</p>
+
+        <div class="divider"></div>
+
+        <div class="info-card">
+            <div class="info-card-header">
+                <span>⚠️</span>
+                <span>安全提示</span>
+            </div>
+            <div class="info-card-text">
+                控制面板链接具有时效性，请从软件主界面重新获取有效的访问链接。
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">
+                <span class="footer-brand">Ai_Chat</span> 控制面板
+            </p>
+        </div>
+    </div>
+</body>
+</html>

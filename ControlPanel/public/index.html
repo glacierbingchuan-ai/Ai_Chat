@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Control Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div id="loading-warning" class="loading-warning" style="display: none;">长时间加载？请尝试重启软件</div>
+        </div>
+    </div>
+
+    <!-- Background elements -->
+    <div class="background-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+
+    <!-- Snow animation -->
+    <div class="snow-container" id="snow-container"></div>
+
+    <div class="container with-sidebar">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Ai_Chat</h2>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item active" onclick="switchView('dashboard')">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">控制面板</span>
+                </div>
+                <div class="menu-item" onclick="switchView('role-cards')">
+                    <span class="menu-icon">🎭</span>
+                    <span class="menu-text">角色卡广场</span>
+                </div>
+                <div class="menu-item" onclick="switchView('chat-history')">
+                    <span class="menu-icon">💬</span>
+                    <span class="menu-text">聊天记录</span>
+                </div>
+                <div class="menu-item" onclick="switchView('plugin-market')">
+                    <span class="menu-icon">🛒</span>
+                    <span class="menu-text">插件广场</span>
+                </div>
+                <div class="menu-item" onclick="switchView('plugins')">
+                    <span class="menu-icon">🔌</span>
+                    <span class="menu-text">插件管理</span>
+                </div>
+                <div class="menu-item" onclick="switchView('about')">
+                    <span class="menu-icon">ℹ️</span>
+                    <span class="menu-text">关于</span>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="menu-item" onclick="showQqGroupModal()">
+                    <span class="menu-icon">💬</span>
+                    <span class="menu-text">加入交流群</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <!-- Status bar -->
+            <div class="status-bar">
+                <div class="quote-item">
+                    <span id="quote-text">加载中...</span>
+                </div>
+                <div class="status-item llm-status">
+                    <span>LLM 状态: </span>
+                    <span id="llm-status" class="checking">检查中...</span>
+                </div>
+            </div>
+
+            <!-- Dashboard view -->
+            <div id="dashboard-view" class="view-content">
+                <!-- Main content grid -->
+                <div class="content-grid">
+                    <!-- Left column -->
+                    <div class="left-column">
+                        <!-- System Logs -->
+                        <div class="card logs-section">
+                            <div class="logs-header">
+                                <h2>系统日志</h2>
+                                <button class="btn btn-danger" onclick="clearLogs()">清空日志</button>
+                            </div>
+                            <div class="logs-container" id="logs-container">
+                                <div class="loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats and Events section -->
+                        <div class="stats-events-container">
+                            <!-- Stats section -->
+                            <div class="card stats-card">
+                                <h2>统计信息</h2>
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <span class="stat-value" id="total-messages">0</span>
+                                        <span class="stat-label">总消息数</span>
+                                    </div>
+                                    <div class="stat-card">
+                                        <span class="stat-value" id="proactive-chats">0</span>
+                                        <span class="stat-label">主动聊天</span>
+                                    </div>
+                                    <div class="stat-card">
+                                        <span class="stat-value" id="reminders">0</span>
+                                        <span class="stat-label">提醒次数</span>
+                                    </div>
+                                </div>
+                                <div class="stats-footer">
+                                    <div class="clear-context-section">
+                                        <button class="btn btn-warning" onclick="clearContext()">清空上下文</button>
+                                        <div class="clear-context-info">
+                                            <span class="info-text">清空对话历史，重置AI对话状态</span>
+                                            <span class="info-note">修改提示词后需清空上下文才可生效</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Scheduled events -->
+                            <div class="card events-card">
+                                <h2>计划事件</h2>
+                                <div class="events-list" id="events-list">
+                                    <div class="loading">
+                                        <div class="loading-spinner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right column -->
+                    <div class="right-column">
+                        <!-- Settings tabs -->
+                        <div class="card settings-card">
+                            <h2>配置管理</h2>
+                            <div class="tabs">
+                                <button class="tab-button active" onclick="switchTab('general-settings', event)">通用设置</button>
+                                <button class="tab-button" onclick="switchTab('llm-settings', event)">LLM 设置</button>
+                                <button class="tab-button" onclick="switchTab('prompt-settings', event)">提示词设置</button>
+                            </div>
+                            <div class="tab-content">
+                                <!-- General settings -->
+                                <div id="general-settings" class="tab-pane">
+                                    <div class="form-group">
+                                        <label for="websocket-server-uri">
+                                            WebSocket 协议端地址
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    连接到消息协议端的地址，用于接收用户消息和发送AI回复。必须使用遵守OneBot协议的框架，通常设置为本地服务器地址，如ws://localhost:3000。
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="websocket-server-uri" placeholder="ws://localhost:3000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="websocket-token">
+                                            WebSocket 认证 Token
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    可空：用于WebSocket连接认证的token，当服务器要求认证时使用。将以Bearer方式添加到WebSocket连接头中。
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="password" id="websocket-token" placeholder="可空：如果有，请输入认证token">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="websocket-keep-alive">WebSocket 心跳间隔 (ms)</label>
+                                        <input type="number" id="websocket-keep-alive" min="5000" max="60000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max-context-rounds">
+                                            最大上下文轮数
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    控制对话历史的长度。当上下文消息数超过设定值的2倍时，会触发上下文总结，将旧的对话历史压缩成一个总结，只保留核心信息。值越大，AI可以记住的对话越多，但会增加API调用成本和响应时间。
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="number" id="max-context-rounds" min="1" max="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="target-user-id">目标用户 ID</label>
+                                        <input type="number" id="target-user-id">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="active-chat-probability">主动聊天概率 (%)</label>
+                                            <input type="number" id="active-chat-probability" min="0" max="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="min-safe-delay">最小安全延迟 (ms)</label>
+                                            <input type="number" id="min-safe-delay" min="500" max="10000">
+                                        </div>
+                                    </div>
+                                    <div class="form-checkbox">
+                                        <input type="checkbox" id="proactive-chat-enabled">
+                                        <label for="proactive-chat-enabled">
+                                            启用主动聊天
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    允许AI在空闲时段主动发起聊天，夜间11点到次日早上6点不会触发主动聊天。
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="form-checkbox">
+                                        <input type="checkbox" id="reminder-enabled">
+                                        <label for="reminder-enabled">启用提醒功能</label>
+                                    </div>
+                                    <div class="form-checkbox">
+                                        <input type="checkbox" id="intent-analysis-enabled">
+                                        <label for="intent-analysis-enabled">
+                                            启用前置语义判断
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    验证用户消息的完整性：分析用户输入是否完整，对于不完整的消息会缓冲等待进一步输入，对于不确定的消息会进入观察窗口。
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- LLM settings -->
+                                <div id="llm-settings" class="tab-pane" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="llm-model-name">LLM 模型名称</label>
+                                        <input type="text" id="llm-model-name" placeholder="qwen-plus">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="llm-api-base-url">LLM API 基础 URL</label>
+                                        <input type="text" id="llm-api-base-url" placeholder="https://api.example.com/v1/chat/completions">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="llm-api-key">LLM API Key</label>
+                                        <input type="password" id="llm-api-key" placeholder="sk-...">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="llm-max-tokens">
+                                                最大 Tokens
+                                                <div class="help-tooltip">
+                                                    <div class="help-icon">?</div>
+                                                    <div class="tooltip-text">
+                                                        控制AI响应的最大长度。值越大，AI可以生成更长的回答，但会增加API调用成本和响应时间。
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            <input type="number" id="llm-max-tokens" min="100" max="4096">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="llm-temperature">
+                                                Temperature
+                                                <div class="help-tooltip">
+                                                    <div class="help-icon">?</div>
+                                                    <div class="tooltip-text">
+                                                        控制AI响应的随机性。值越高，回答越随机；值越低，回答越确定和保守。建议范围：0.7-1.0。
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            <input type="number" id="llm-temperature" min="0" max="2" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="llm-top-p">
+                                            Top P
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    控制AI选择词汇的范围。值越低，AI选择的词汇越集中；值越高，选择范围越广。与Temperature配合使用。
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <div style="display: flex; gap: 10px; align-items: flex-end;">
+                                            <input type="number" id="llm-top-p" min="0" max="1" step="0.05" style="flex: 1;">
+                                            <button class="btn btn-primary" onclick="checkLlmStatus()">测试是否可用</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Prompt settings -->
+                                <div id="prompt-settings" class="tab-pane" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="base-system-prompt">
+                                            基础系统提示词
+                                            <div class="help-tooltip bottom">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    定义AI的角色、行为准则、互动规范等核心设定，是AI回复的基础框架。包含角色设定、日常行程、核心互动准则等详细内容。
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <textarea id="base-system-prompt" class="prompt-editor" placeholder="在此输入基础系统提示词..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="incomplete-input-prompt">
+                                            语义判断提示词
+                                            <div class="help-tooltip">
+                                                <div class="help-icon">?</div>
+                                                <div class="tooltip-text">
+                                                    用于判断用户消息是否完整的提示词。当启用前置语义判断时，系统会使用此提示词分析用户输入是否完整，分为完整、不确定和不完整三个级别。
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <textarea id="incomplete-input-prompt" class="prompt-editor" placeholder="在此输入前置语义判断提示词..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-footer">
+                                <button class="btn btn-primary" onclick="saveConfig()">保存配置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Cards view -->
+            <div id="role-cards-view" class="view-content" style="display: none;">
+                <div class="card role-cards-page">
+                    <h2>角色卡广场</h2>
+                    <div class="role-cards-header">
+                        <h3>探索角色卡</h3>
+                        <div class="header-buttons">
+                            <button class="btn btn-primary" onclick="loadRoleCards()">刷新角色卡列表</button>
+                            <button class="btn btn-secondary" onclick="showRoleCardsSettingsModal()">⚙️ 设置</button>
+                        </div>
+                    </div>
+                    <div class="role-cards-container" id="role-cards-container">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <div>加载角色卡中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat History view -->
+            <div id="chat-history-view" class="view-content" style="display: none;">
+                <div class="card chat-history-page">
+                    <h2>聊天记录</h2>
+                    <div class="chat-history-header">
+                        <h3>历史消息</h3>
+                        <button class="btn btn-primary" onclick="loadChatHistory()">刷新聊天记录</button>
+                    </div>
+                    <div class="chat-messages-container" id="chat-messages-container">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <div>加载聊天记录中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plugin Market view -->
+            <div id="plugin-market-view" class="view-content" style="display: none;">
+                <div class="card plugin-market-page">
+                    <h2>🛒 插件广场</h2>
+                    <div class="plugin-market-header">
+                        <h3>探索可用插件</h3>
+                        <div class="header-buttons">
+                            <button class="btn btn-primary" onclick="loadPluginMarket()">刷新插件列表</button>
+                        </div>
+                    </div>
+                    <div class="plugin-market-container" id="plugin-market-container">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <div>加载插件广场中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plugins view -->
+            <div id="plugins-view" class="view-content" style="display: none;">
+                <div class="card plugins-page">
+                    <div class="plugins-header">
+                        <h2>🔌 插件管理</h2>
+                        <div class="plugins-actions">
+                            <button class="btn btn-primary" onclick="refreshPluginsList()">
+                                <span class="btn-icon">🔄</span> 刷新列表
+                            </button>
+                            <button class="btn btn-secondary" onclick="showLoadPluginModal()">
+                                <span class="btn-icon">📁</span> 加载插件
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="plugins-stats">
+                        <div class="plugin-stat-card">
+                            <span class="stat-value" id="total-plugins-count">0</span>
+                            <span class="stat-label">总插件数</span>
+                        </div>
+                        <div class="plugin-stat-card">
+                            <span class="stat-value" id="running-plugins-count">0</span>
+                            <span class="stat-label">运行中</span>
+                        </div>
+                        <div class="plugin-stat-card">
+                            <span class="stat-value" id="stopped-plugins-count">0</span>
+                            <span class="stat-label">已停止</span>
+                        </div>
+                    </div>
+
+                    <div class="plugins-container" id="plugins-container">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <div>加载插件列表中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About view -->
+            <div id="about-view" class="view-content" style="display: none;">
+                <div class="about-simple-card">
+                    <div class="about-simple-avatar" onclick="toggleMirrorEffect()">
+                        <img src="css/glacier.jpg" alt="冰川">
+                    </div>
+                    <h2>Ai_Chat</h2>
+                    <p class="about-simple-desc">基于大语言模型的智能聊天机器人</p>
+                    <div class="about-simple-info">
+                        <p>作者：冰川</p>
+                        <p>QQ群：1071354740</p>
+                    </div>
+                    <p class="about-simple-license">GPLv3 开源协议</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QQ Group Modal -->
+    <div id="qq-group-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📱 加入 QQ 交流群</h2>
+                <button class="close-button" onclick="closeQqGroupModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>欢迎加入我们的 QQ 交流群，一起讨论和分享 AI 相关的知识！</p>
+                <div class="qq-group-info">
+                    <div class="group-code">
+                        <span class="code-label">群号：</span>
+                        <span class="code-value">1071354740</span>
+                    </div>
+                    <div class="group-qrcode">
+                        <img src="css/QQ.png" alt="QQ Group QR Code">
+                    </div>
+                </div>
+                <div class="commercial-warning">
+                    <p>⚠️ 重要提示：本项目遵循 GPLv3 开源协议！</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeQqGroupModal()">稍后再说</button>
+                <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=1pOX2q6gKl41GttJcuXDoCuBVlEhWNTS&authKey=PI7D%2FlEFqlD%2B6zLjE7FCTbzsVBig%2BWMy5rCHAlQOIpsRsUZKCA%2FOYzBDzzUA%2FAaf&noverify=0&group_code=1071354740" target="_blank" class="btn btn-primary">
+                    立即加入
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Card Detail Modal -->
+        <div id="role-card-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="role-card-title">角色卡详情</h2>
+                    <button class="close-button" onclick="closeRoleCardModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="role-card-loading" class="loading">
+                        <div class="loading-spinner"></div>
+                        <div>加载角色卡详情中...</div>
+                    </div>
+                    <div id="role-card-content" style="display: none;">
+                        <div class="role-card-info">
+                            <div class="role-card-image">
+                                <img id="role-card-image" src="" alt="角色卡图片">
+                            </div>
+                            <div class="role-card-details">
+                                <h3 id="role-card-name">角色名称</h3>
+                                <p id="role-card-intro">角色介绍</p>
+                                <div class="role-card-tags" id="role-card-tags">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeRoleCardModal()">取消</button>
+                    <button class="btn btn-primary" onclick="useRoleCard()">使用此角色卡</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Cards Settings Modal -->
+        <div id="role-cards-settings-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ 角色卡设置</h2>
+                    <button class="close-button" onclick="closeRoleCardsSettingsModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="role-cards-api-url">
+                            角色卡API URL
+                            <div class="help-tooltip">
+                                <div class="help-icon">?</div>
+                                <div class="tooltip-text">
+                                    自定义角色卡数据源的API地址，默认为Gitee上的角色卡仓库列表。
+                                </div>
+                            </div>
+                        </label>
+                        <input type="text" id="role-cards-api-url" placeholder="https://raw.githubusercontent.com/glacierbingchuan-ai/Character_Cards/refs/heads/main/list.json" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeRoleCardsSettingsModal()">取消</button>
+                    <button class="btn btn-primary" onclick="saveRoleCardsSettings()">保存设置</button>
+                </div>
+            </div>
+        </div>
+
+    <!-- Plugin Manage Modal (合并命令和配置) -->
+    <div id="plugin-manage-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 900px; max-height: 85vh;">
+            <div class="modal-header">
+                <h2>🎮 插件管理</h2>
+                <button class="close-button" onclick="closePluginManageModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <!-- 标签页导航 -->
+                <div class="plugin-tabs">
+                    <button class="plugin-tab active" data-tab="commands" onclick="switchPluginTab('commands')">
+                        🎮 命令
+                    </button>
+                    <button class="plugin-tab" data-tab="config" onclick="switchPluginTab('config')">
+                        ⚙️ 配置
+                    </button>
+                </div>
+                
+                <!-- 命令标签页 -->
+                <div id="tab-commands" class="plugin-tab-content active">
+                    <div id="plugin-manage-commands-container">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <div>加载命令列表中...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 配置标签页 -->
+                <div id="tab-config" class="plugin-tab-content">
+                    <div id="plugin-manage-config-container">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <div>加载配置中...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePluginManageModal()">关闭</button>
+                <button id="save-config-btn" class="btn btn-primary" onclick="savePluginManageConfig()" style="display: none;">保存配置</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugin Readme Modal -->
+    <div id="plugin-readme-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px; max-height: 80vh;">
+            <div class="modal-header">
+                <h2>📖 插件自述</h2>
+                <button class="close-button" onclick="closePluginReadmeModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="overflow-y: auto; max-height: 60vh;">
+                <div id="plugin-readme-content">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <div>加载中...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePluginReadmeModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugin Permissions Modal -->
+    <div id="plugin-permissions-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔒 插件权限</h2>
+                <button class="close-button" onclick="closePluginPermissionsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="plugin-permissions-content">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <div>加载中...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePluginPermissionsModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Plugin Modal -->
+    <div id="load-plugin-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📁 加载插件</h2>
+                <button class="close-button" onclick="closeLoadPluginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="plugin-drop-zone" class="drop-zone">
+                    <div class="drop-zone-content">
+                        <div class="drop-icon">📦</div>
+                        <p class="drop-text">拖放插件 DLL 文件到此处</p>
+                        <p class="drop-subtext">或点击选择文件</p>
+                        <input type="file" id="plugin-file-input" accept=".dll" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="plugin-file-path">插件文件路径</label>
+                    <input type="text" id="plugin-file-path" placeholder="例如: Plugins\\MyPlugin.dll" style="width: 100%;" readonly>
+                    <small class="help-text">拖放文件或点击上方区域选择文件</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeLoadPluginModal()">取消</button>
+                <button class="btn btn-primary" onclick="loadPluginFromFile()">加载插件</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugin Command Parameter Modal -->
+    <div id="plugin-command-param-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="command-param-title">执行命令</h2>
+                <button class="close-button" onclick="closeCommandParamModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="command-param-description" style="margin-bottom: 15px; color: var(--text-secondary);"></div>
+                <div id="command-param-inputs">
+                    <!-- 动态生成输入框 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeCommandParamModal()">取消</button>
+                <button class="btn btn-primary" onclick="executeCommandWithParams()">执行</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugin Command Result Modal -->
+    <div id="plugin-command-result-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px; max-height: 80vh;">
+            <div class="modal-header">
+                <h2>命令执行结果</h2>
+                <button class="close-button" onclick="closeCommandResultModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="overflow-y: auto; max-height: 60vh;">
+                <div id="command-result-content">
+                    <!-- 动态显示结果 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeCommandResultModal()">关闭</button>
+                <button class="btn btn-primary" onclick="copyCommandResult()">复制结果</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugin Market Detail Modal -->
+    <div id="plugin-market-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 700px; height: 700px; max-height: 90vh; display: flex; flex-direction: column; padding: 0;">
+            <div class="modal-header" style="padding: 20px 30px; margin: 0; flex-shrink: 0;">
+                <h2 id="plugin-market-modal-title">插件详情</h2>
+                <button class="close-button" onclick="closePluginMarketModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="overflow-y: auto; flex: 1; padding: 20px 30px;">
+                <div id="plugin-market-loading" class="loading">
+                    <div class="loading-spinner"></div>
+                    <div>加载插件详情中...</div>
+                </div>
+                <div id="plugin-market-content" style="display: none;">
+                    <div class="plugin-market-detail">
+                        <!-- 插件图片放在最上方 -->
+                        <div class="plugin-market-banner" style="margin-bottom: 20px; text-align: center;">
+                            <img id="plugin-market-image" src="" alt="插件图片" style="max-width: 100%; max-height: 200px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                        </div>
+                        <div class="plugin-market-info" style="flex-direction: column; gap: 15px;">
+                            <div class="plugin-market-details" style="text-align: center;">
+                                <h3 id="plugin-market-name">插件名称</h3>
+                                <p id="plugin-market-intro">插件介绍</p>
+                                <div class="plugin-market-meta" style="justify-content: center;">
+                                    <span class="plugin-market-author">👤 <span id="plugin-market-author">作者</span></span>
+                                    <span class="plugin-market-version">📦 版本: <span id="plugin-market-version">1.0.0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plugin-market-description">
+                            <h4>插件说明</h4>
+                            <div id="plugin-market-readme"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Download Progress Section (独立于滚动区域) -->
+            <div id="download-progress-section" style="display: none; padding: 20px 30px; background: rgba(74, 144, 226, 0.1); border-top: 1px solid rgba(74, 144, 226, 0.3); flex-shrink: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span id="download-status-text" style="font-weight: 500; color: var(--text-color);">准备下载...</span>
+                    <span id="download-percentage" style="font-weight: 600; color: var(--primary-color);">0%</span>
+                </div>
+                <div class="progress-bar-container" style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+                    <div id="download-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); border-radius: 4px; transition: width 0.3s ease;"></div>
+                </div>
+                <div id="download-size-info" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary); text-align: right;">0 MB / 0 MB</div>
+            </div>
+            <!-- Loading Section (转圈圈，独立于滚动区域) -->
+            <div id="plugin-loading-section" style="display: none; padding: 20px 30px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); flex-shrink: 0;">
+                <div class="loading-spinner" style="width: 40px; height: 40px; margin: 0 auto 15px;"></div>
+                <span id="plugin-loading-text" style="color: var(--text-color); font-weight: 500;">正在加载插件...</span>
+            </div>
+            <div class="modal-footer" id="plugin-market-modal-footer" style="padding: 20px 30px; margin: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); flex-shrink: 0;">
+                <button class="btn btn-secondary" id="close-modal-btn" onclick="closePluginMarketModal()">关闭</button>
+                <button class="btn btn-primary" id="download-plugin-btn" onclick="downloadPlugin()">下载并安装</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/fireworks.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
