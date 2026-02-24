@@ -1,0 +1,939 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Betalgo.Ranul.OpenAI.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.AnnotationType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.AnnotationType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.AssistantMessageRole">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.AssistantMessageRole.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.AudioResponseFormat">
+            <summary>
+                The format of the output, in one of these options: <c>json</c>, <c>text</c>, <c>srt</c>, <c>verbose_json</c>, or
+                <c>vtt</c>. For <c>gpt-4o-transcribe</c> and <c>gpt-4o-mini-transcribe</c>, the only supported format is
+                <c>json</c>.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.AudioResponseFormat.#ctor(System.String)">
+            <summary>
+                The format of the output, in one of these options: <c>json</c>, <c>text</c>, <c>srt</c>, <c>verbose_json</c>, or
+                <c>vtt</c>. For <c>gpt-4o-transcribe</c> and <c>gpt-4o-mini-transcribe</c>, the only supported format is
+                <c>json</c>.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.ChatCompletionRole">
+            <summary>
+                The role of the author of a message
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.ChatCompletionRole.#ctor(System.String)">
+            <summary>
+                The role of the author of a message
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.CreateSpeechResponseFormat">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/audio/createSpeech#audio-createspeech-response_format">
+                    OpenAI API: response_format documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.CreateSpeechResponseFormat.#ctor(System.String)">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/audio/createSpeech#audio-createspeech-response_format">
+                    OpenAI API: response_format documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageBackground">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-background">
+                    OpenAI API documentation
+                </see>
+                Allows to set transparency for the background of the generated image(s).
+                This parameter is only supported for <c>gpt-image-1</c>. Must be one of
+                <c>transparent</c>, <c>opaque</c> or <c>auto</c> (default value). When <c>auto</c> is used, the
+                model will automatically determine the best background for the image.
+                <para />
+                If <c>transparent</c>, the output format needs to support transparency, so it
+                should be set to either <c>png</c> (default value) or <c>webp</c>.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageBackground.#ctor(System.String)">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-background">
+                    OpenAI API documentation
+                </see>
+                Allows to set transparency for the background of the generated image(s).
+                This parameter is only supported for <c>gpt-image-1</c>. Must be one of
+                <c>transparent</c>, <c>opaque</c> or <c>auto</c> (default value). When <c>auto</c> is used, the
+                model will automatically determine the best background for the image.
+                <para />
+                If <c>transparent</c>, the output format needs to support transparency, so it
+                should be set to either <c>png</c> (default value) or <c>webp</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageBackground.Transparent">
+            <summary>
+                Literal <c>transparent</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageBackground.Opaque">
+            <summary>
+                Literal <c>opaque</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageBackground.Auto">
+            <summary>
+                Literal <c>auto</c>.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageDetailType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageDetailType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageFileType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageFileType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageModeration">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-moderation">
+                    OpenAI API documentation
+                </see>
+                Control the content-moderation level for images generated by gpt-image-1. Must be either low for less restrictive
+                filtering or auto (default value).
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageModeration.#ctor(System.String)">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-moderation">
+                    OpenAI API documentation
+                </see>
+                Control the content-moderation level for images generated by gpt-image-1. Must be either low for less restrictive
+                filtering or auto (default value).
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageModeration.Low">
+            <summary>
+                Literal <c>low</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageModeration.Auto">
+            <summary>
+                Literal <c>auto</c>.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageOutputFormat">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-output_format">
+                    OpenAI API documentation
+                </see>
+                The format in which the generated images are returned. This parameter is
+                only supported for <c>gpt-image-1</c>. Must be one of <c>png</c>, <c>jpeg</c>, or <c>webp</c>.
+                The default value is <c>png</c>.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageOutputFormat.#ctor(System.String)">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-output_format">
+                    OpenAI API documentation
+                </see>
+                The format in which the generated images are returned. This parameter is
+                only supported for <c>gpt-image-1</c>. Must be one of <c>png</c>, <c>jpeg</c>, or <c>webp</c>.
+                The default value is <c>png</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageOutputFormat.Png">
+            <summary>
+                Literal <c>png</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageOutputFormat.Jpeg">
+            <summary>
+                Literal <c>jpeg</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageOutputFormat.Webp">
+            <summary>
+                Literal <c>webp</c>.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-quality">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.#ctor(System.String)">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create#images_create-quality">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.Auto">
+            <summary>
+                Auto (default value) will automatically select the best quality for the given model.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.High">
+            <summary>
+                High quality option for gpt-image-1.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.Medium">
+            <summary>
+                Medium quality option for gpt-image-1.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.Low">
+            <summary>
+                Low quality option for gpt-image-1.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.Hd">
+            <summary>
+                High definition quality option for dall-e-3.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageQuality.Standard">
+            <summary>
+                Standard quality option for dall-e-3 and the only option for dall-e-2.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageResponseFormat">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageResponseFormat.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageSize">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageSize.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageSize.Size1792x1024">
+            <summary>
+                Only dall-e-3 model
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageSize.Size1024x1792">
+            <summary>
+                Only dall-e-3 model
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageStyle">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+                The style of the generated images. This parameter is only supported for <c>dall-e-3</c>. Must be one of
+                <c>vivid</c> or <c>natural</c>. Vivid causes the model to lean towards generating hyper-real and dramatic images.
+                Natural causes the model to produce more natural, less hyper-real looking images.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Image.ImageStyle.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+                The style of the generated images. This parameter is only supported for <c>dall-e-3</c>. Must be one of
+                <c>vivid</c> or <c>natural</c>. Vivid causes the model to lean towards generating hyper-real and dramatic images.
+                Natural causes the model to produce more natural, less hyper-real looking images.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.MessageContentType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.MessageContentType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Model.ImageModel">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Model.ImageModel.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.ReasoningEffort">
+            <summary>
+                <b>o-series models only</b>
+                <para />
+                Constrains effort on reasoning for
+                <see href="https://platform.openai.com/docs/guides/reasoning">reasoning models</see>.
+                Currently supported values are <c>low</c>, <c>medium</c>, and <c>high</c>. Reducing
+                reasoning effort can result in faster responses and fewer tokens used
+                on reasoning in a response.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.ReasoningEffort.#ctor(System.String)">
+            <summary>
+                <b>o-series models only</b>
+                <para />
+                Constrains effort on reasoning for
+                <see href="https://platform.openai.com/docs/guides/reasoning">reasoning models</see>.
+                Currently supported values are <c>low</c>, <c>medium</c>, and <c>high</c>. Reducing
+                reasoning effort can result in faster responses and fewer tokens used
+                on reasoning in a response.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.RequiredActionType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.RequiredActionType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.ResponseFormat">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.ResponseFormat.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.RunStatus">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.RunStatus.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.TimestampGranularity">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.TimestampGranularity.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.ToolCallType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.ToolCallType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.ToolChoiceType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.ToolChoiceType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.ToolType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.ToolType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.VectorStoreChunkingStrategyType">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.VectorStoreChunkingStrategyType.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Enums.Voice">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Enums.Voice.#ctor(System.String)">
+            <summary>
+                <see href="">
+                    OpenAI API documentation
+                </see>
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/createEdit">
+                    OpenAI API documentation
+                </see>
+                <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/createimageeditrequest.yml">
+                    Source Definition
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest" /> class.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.#ctor(Betalgo.Ranul.OpenAI.Contracts.Types.FormFileOrList,System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest" /> class.
+            </summary>
+            <param name="image">
+                The image(s) to edit. Must be a supported image file or an array of images.
+                <para />
+                For <c>gpt-image-1</c>, each image should be a <c>png</c>, <c>webp</c>, or <c>jpg</c> file less
+                than 50MB. You can provide up to 16 images.
+                <para />
+                For <c>dall-e-2</c>, you can only provide one image, and it should be a square
+                <c>png</c> file less than 4MB.
+            </param>
+            <param name="prompt">
+                A text description of the desired image(s). The maximum length is 1000 characters for <c>dall-e-2</c>, and 32000
+                characters for <c>gpt-image-1</c>.
+            </param>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Image">
+            <summary>
+                The image(s) to edit. Must be a supported image file or an array of images.
+                <para />
+                For <c>gpt-image-1</c>, each image should be a <c>png</c>, <c>webp</c>, or <c>jpg</c> file less
+                than 50MB. You can provide up to 16 images.
+                <para />
+                For <c>dall-e-2</c>, you can only provide one image, and it should be a square
+                <c>png</c> file less than 4MB.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Prompt">
+            <summary>
+                A text description of the desired image(s). The maximum length is 1000 characters for <c>dall-e-2</c>, and 32000
+                characters for <c>gpt-image-1</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Mask">
+            <summary>
+                An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where <c>image</c> should be
+                edited. If there are multiple images provided, the mask will be applied on the first image. Must be a valid PNG
+                file, less than 4MB, and have the same dimensions as <c>image</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.N">
+            <summary>
+                The number of images to generate. Must be between 1 and 10.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.ResponseFormat">
+            <summary>
+                The format in which the generated images are returned. Must be one of <c>url</c> or <c>b64_json</c>. URLs are only
+                valid for 60 minutes after the image has been generated. This parameter is only supported for <c>dall-e-2</c>, as
+                <c>gpt-image-1</c> will always return base64-encoded images.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.OutputCompression">
+            <summary>
+                The compression level (0-100%) for the generated images. This parameter
+                is only supported for <c>gpt-image-1</c> with the <c>webp</c> or <c>jpeg</c> output
+                formats, and defaults to 100.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.User">
+            <summary>
+                A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+                <see href="https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids">Learn more</see>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Background">
+            <summary>
+                Allows to set transparency for the background of the generated image(s).
+                This parameter is only supported for <c>gpt-image-1</c>. Must be one of
+                <c>transparent</c>, <c>opaque</c> or <c>auto</c> (default value). When <c>auto</c> is used, the
+                model will automatically determine the best background for the image.
+                <para />
+                If <c>transparent</c>, the output format needs to support transparency, so it
+                should be set to either <c>png</c> (default value) or <c>webp</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.OutputFormat">
+            <summary>
+                The format in which the generated images are returned. This parameter is
+                only supported for <c>gpt-image-1</c>. Must be one of <c>png</c>, <c>jpeg</c>, or <c>webp</c>.
+                The default value is <c>png</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Quality">
+            <summary>
+                The quality of the image that will be generated. <c>high</c>, <c>medium</c> and <c>low</c> are only supported for
+                <c>gpt-image-1</c>. <c>dall-e-2</c> only supports <c>standard</c> quality. Defaults to <c>auto</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Size">
+            <summary>
+                The size of the generated images. Must be one of <c>1024x1024</c>, <c>1536x1024</c> (landscape), <c>1024x1536</c>
+                (portrait), or <c>auto</c> (default value) for <c>gpt-image-1</c>, and one of <c>256x256</c>, <c>512x512</c>, or
+                <c>1024x1024</c> for <c>dall-e-2</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageEditRequest.Model">
+            <summary>
+                The model to use for image generation. Only <c>dall-e-2</c>, <c>gpt-image-1</c> and <c>gpt-image-1-mini</c> are
+                supported. Defaults to <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/create">
+                    OpenAI API documentation
+                </see>
+                <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/createimagerequest.yml">
+                    Source Definition
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest" /> class.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest" /> class.
+            </summary>
+            <param name="prompt">
+                A text description of the desired image(s). The maximum length is 32000 characters for <c>gpt-image-1</c>, 1000
+                characters for <c>dall-e-2</c> and 4000 characters for <c>dall-e-3</c>.
+            </param>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Prompt">
+            <summary>
+                A text description of the desired image(s). The maximum length is 32000 characters for <c>gpt-image-1</c>, 1000
+                characters for <c>dall-e-2</c> and 4000 characters for <c>dall-e-3</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.N">
+            <summary>
+                The number of images to generate. Must be between 1 and 10. For <c>dall-e-3</c>, only <c>n=1</c> is supported.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.ResponseFormat">
+            <summary>
+                The format in which generated images with <c>dall-e-2</c> and <c>dall-e-3</c> are returned. Must be one of
+                <c>url</c> or <c>b64_json</c>. URLs are only valid for 60 minutes after the image has been generated. This
+                parameter isn't supported for <c>gpt-image-1</c> which will always return base64-encoded images.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.OutputCompression">
+            <summary>
+                The compression level (0-100%) for the generated images. This parameter is only supported for <c>gpt-image-1</c>
+                with the <c>webp</c> or <c>jpeg</c> output formats, and defaults to 100.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Moderation">
+            <summary>
+                Control the content-moderation level for images generated by <c>gpt-image-1</c>. Must be either <c>low</c> for less
+                restrictive filtering or <c>auto</c> (default value).
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Style">
+            <summary>
+                The style of the generated images. This parameter is only supported for <c>dall-e-3</c>. Must be one of
+                <c>vivid</c> or <c>natural</c>. Vivid causes the model to lean towards generating hyper-real and dramatic images.
+                Natural causes the model to produce more natural, less hyper-real looking images.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.User">
+            <summary>
+                A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+                <see href="https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids">Learn more</see>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Background">
+            <summary>
+                Allows to set transparency for the background of the generated image(s).
+                This parameter is only supported for <c>gpt-image-1</c>. Must be one of
+                <c>transparent</c>, <c>opaque</c> or <c>auto</c> (default value). When <c>auto</c> is used, the
+                model will automatically determine the best background for the image.
+                <para />
+                If <c>transparent</c>, the output format needs to support transparency, so it
+                should be set to either <c>png</c> (default value) or <c>webp</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.OutputFormat">
+            <summary>
+                The format in which the generated images are returned. This parameter is only supported for <c>gpt-image-1</c>.
+                Must be one of <c>png</c>, <c>jpeg</c>, or <c>webp</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Quality">
+            <summary>
+                The quality of the image that will be generated.
+                <para />
+                - <c>auto</c> (default value) will automatically select the best quality for the given model.
+                - <c>high</c>, <c>medium</c> and <c>low</c> are supported for <c>gpt-image-1</c>.
+                - <c>hd</c> and <c>standard</c> are supported for <c>dall-e-3</c>.
+                - <c>standard</c> is the only option for <c>dall-e-2</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Size">
+            <summary>
+                The size of the generated images. Must be one of <c>1024x1024</c>, <c>1536x1024</c> (landscape), <c>1024x1536</c>
+                (portrait), or <c>auto</c> (default value) for <c>gpt-image-1</c>, one of <c>256x256</c>, <c>512x512</c>, or
+                <c>1024x1024</c> for <c>dall-e-2</c>, and one of <c>1024x1024</c>, <c>1792x1024</c>, or <c>1024x1792</c> for
+                <c>dall-e-3</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageRequest.Model">
+            <summary>
+                The model to use for image generation. One of <c>dall-e-2</c>, <c>dall-e-3</c>, <c>gpt-image-1</c> or
+                <c>gpt-image-1-mini</c>. Defaults to <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/createVariation">
+                    OpenAI API documentation
+                </see>
+                <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/createimagevariationrequest.yml">
+                    Source Definition
+                </see>
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest" /> class.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.#ctor(Betalgo.Ranul.OpenAI.Contracts.Types.FormFile)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest" /> class.
+            </summary>
+            <param name="image">
+                The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square.
+            </param>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.Image">
+            <summary>
+                The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.N">
+            <summary>
+                The number of images to generate. Must be between 1 and 10.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.ResponseFormat">
+            <summary>
+                The format in which the generated images are returned. Must be one of <c>url</c> or <c>b64_json</c>. URLs are only
+                valid for 60 minutes after the image has been generated.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.User">
+            <summary>
+                A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+                <see href="https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids">Learn more</see>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.Size">
+            <summary>
+                The size of the generated images. Must be one of <c>256x256</c>, <c>512x512</c>, or <c>1024x1024</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Requests.Image.CreateImageVariationRequest.Model">
+            <summary>
+                The model to use for image generation. Only <c>dall-e-2</c> is supported at this time.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Base.ResponseBase.ObjectTypeName">
+            <summary>
+                The type of the object returned by the API.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Base.ResponseError.EventId">
+            <summary>
+                The event_id of the client event that caused the error, if applicable.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse">
+            <summary>
+                <see href="https://platform.openai.com/docs/api-reference/images/object">
+                    OpenAI API documentation
+                </see>
+                The response from the image generation endpoint.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse" /> class.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.#ctor(System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse" /> class.
+            </summary>
+            <param name="created">
+                The Unix timestamp (in seconds) of when the image was created.
+            </param>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.Created">
+            <summary>
+                The Unix timestamp (in seconds) of when the image was created.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.Data">
+            <summary>
+                The list of generated images.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.Usage">
+            <summary>
+                For <c>gpt-image-1</c> only, the token usage information for the image generation.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.Background">
+            <summary>
+                The background parameter used for the image generation. Either <c>transparent</c> or <c>opaque</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.OutputFormat">
+            <summary>
+                The output format of the image generation. Either <c>png</c>, <c>webp</c>, or <c>jpeg</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.Quality">
+            <summary>
+                The quality of the image generated. Either <c>low</c>, <c>medium</c>, or <c>high</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.Size">
+            <summary>
+                The size of the image generated. Either <c>1024x1024</c>, <c>1024x1536</c>, or <c>1536x1024</c>.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.ImageDataResponse">
+            <summary>
+                Represents the content or the URL of an image generated by the OpenAI API.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.ImageDataResponse.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.ImageDataResponse" /> class.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.ImageDataResponse.B64Json">
+            <summary>
+                The base64-encoded JSON of the generated image. Default value for <c>gpt-image-1</c>, and only present if
+                <c>response_format</c> is set to <c>b64_json</c> for <c>dall-e-2</c> and <c>dall-e-3</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.ImageDataResponse.Url">
+            <summary>
+                When using <c>dall-e-2</c> or <c>dall-e-3</c>, the URL of the generated image if <c>response_format</c> is set to
+                <c>url</c> (default value). Unsupported for <c>gpt-image-1</c>.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.Image.ImageResponse.ImageDataResponse.RevisedPrompt">
+            <summary>
+                For <c>dall-e-3</c> only, the revised prompt that was used to generate the image.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse">
+            <summary>
+                For <c>gpt-image-1</c> only, the token usage information for the image generation.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse" /> class.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.#ctor(System.Int32,System.Int32,System.Int32,Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse" /> class.
+            </summary>
+            <param name="totalTokens">
+                The total number of tokens (images and text) used for the image generation.
+            </param>
+            <param name="inputTokens">
+                The number of tokens (images and text) in the input prompt.
+            </param>
+            <param name="outputTokens">
+                The number of image tokens in the output image.
+            </param>
+            <param name="inputTokensDetails">
+                The input tokens detailed information for the image generation.
+            </param>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.TotalTokens">
+            <summary>
+                The total number of tokens (images and text) used for the image generation.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokens">
+            <summary>
+                The number of tokens (images and text) in the input prompt.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.OutputTokens">
+            <summary>
+                The number of image tokens in the output image.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetails">
+            <summary>
+                The input tokens detailed information for the image generation.
+            </summary>
+        </member>
+        <member name="T:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse">
+            <summary>
+                The input tokens detailed information for the image generation.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse" /> class.
+            </summary>
+        </member>
+        <member name="M:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse.#ctor(System.Int32,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse" /> class.
+            </summary>
+            <param name="textTokens">
+                The number of text tokens in the input prompt.
+            </param>
+            <param name="imageTokens">
+                The number of image tokens in the input prompt.
+            </param>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse.TextTokens">
+            <summary>
+                The number of text tokens in the input prompt.
+            </summary>
+        </member>
+        <member name="P:Betalgo.Ranul.OpenAI.Contracts.Responses.UsageResponse.InputTokensDetailsResponse.ImageTokens">
+            <summary>
+                The number of image tokens in the input prompt.
+            </summary>
+        </member>
+    </members>
+</doc>

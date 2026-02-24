@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - Ai_Chat 控制面板</title>
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const key = urlParams.get('key');
+            if (key) {
+                window.location.href = '/unauthorized.html';
+            }
+        })();
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background-color: #0a0a0a;
+            --text-color: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-blur: 15px;
+            --primary-color: #4a90e2;
+            --secondary-color: #4ed7cc;
+            --accent-color: #7ed321;
+            --error-color: #e53e3e;
+            --success-color: #38a169;
+            --warning-color: #ed8936;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Background image with blur effect - 由JS动态设置 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(1px) brightness(0.7);
+            -webkit-filter: blur(1px) brightness(0.7);
+            z-index: -2;
+            opacity: 0.9;
+        }
+
+        /* Overlay to enhance text readability */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            z-index: -1;
+        }
+
+        /* 浮动圆圈 - 同主页风格 */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.3), rgba(78, 215, 204, 0.2));
+            filter: blur(60px);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -7s;
+            background: linear-gradient(135deg, rgba(78, 215, 204, 0.25), rgba(126, 211, 33, 0.15));
+        }
+
+        .circle-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 30%;
+            animation-delay: -14s;
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(74, 144, 226, 0.15));
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+        }
+
+        /* 雪花效果容器 */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1em;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+        }
+
+        /* 卡片 - 同主页风格 */
+        .card {
+            background: rgba(10, 10, 10, 0.3);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 40px 35px;
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: cardFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        /* Logo 区域 */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .logo-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            opacity: 0.2;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        .logo {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px -10px rgba(74, 144, 226, 0.5);
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .brand-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .brand-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* 分隔线 */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        }
+
+        .divider-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        /* 提示卡片 */
+        .info-card {
+            background: rgba(74, 144, 226, 0.08);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: rgba(74, 144, 226, 0.3);
+            background: rgba(74, 144, 226, 0.12);
+        }
+
+        .info-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(74, 144, 226, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-icon svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-title {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .info-text {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* 错误提示 */
+        .error-message {
+            background: rgba(229, 62, 62, 0.1);
+            border: 1px solid rgba(229, 62, 62, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: shake 0.5s ease;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(229, 62, 62, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .error-icon svg {
+            width: 12px;
+            height: 12px;
+            color: var(--error-color);
+        }
+
+        .error-text {
+            color: #fca5a5;
+            font-size: 13px;
+            flex: 1;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        /* 表单 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px 12px 44px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+
+        .form-input:hover {
+            border-color: rgba(74, 144, 226, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+        }
+
+        .input-wrapper:focus-within .input-icon {
+            color: var(--primary-color);
+        }
+
+        .form-group:focus-within .form-label {
+            color: var(--primary-color);
+        }
+
+        /* 登录按钮 - 同主页按钮风格 */
+        .login-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(74, 144, 226, 0.2);
+            color: var(--text-color);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .login-btn:hover {
+            background: rgba(74, 144, 226, 0.3);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .login-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--border-color);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .login-btn:disabled::before {
+            display: none;
+        }
+
+        /* 加载动画 */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        .spinner.show {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 成功状态 */
+        .success-check {
+            display: none;
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .success-check.show {
+            display: inline-block;
+            animation: checkPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0) rotate(-45deg); }
+            70% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 24px;
+                margin: 16px;
+            }
+
+            .brand-name {
+                font-size: 22px;
+            }
+
+            .logo-wrapper {
+                width: 72px;
+                height: 72px;
+            }
+
+            .logo {
+                width: 56px;
+                height: 56px;
+            }
+
+            .logo svg {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="background-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+
+    <!-- Snow animation -->
+    <div class="snow-container" id="snow-container"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="logo-section">
+                <div class="logo-wrapper">
+                    <div class="logo-bg"></div>
+                    <div class="logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="brand-name">Ai_Chat</h1>
+                <p class="brand-subtitle">控制面板登录</p>
+            </div>
+
+            <div class="divider">
+                <div class="divider-line"></div>
+                <div class="divider-dot"></div>
+                <div class="divider-line"></div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <div class="info-title">如何获取访问密钥</div>
+                    <div class="info-text">请在软件主界面获取有效的访问密钥，密钥具有时效性，过期后需要重新获取。</div>
+                </div>
+            </div>
+
+            <div id="error-message" class="error-message">
+                <div class="error-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <div class="error-text"></div>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="access-key">访问密钥</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="access-key" 
+                            class="form-input"
+                            placeholder="请输入访问密钥..." 
+                            autocomplete="off"
+                            required
+                        >
+                    </div>
+                </div>
+                <button type="submit" class="login-btn" id="login-btn">
+                    <span class="spinner" id="btn-spinner"></span>
+                    <svg class="success-check" id="btn-check" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    <span id="btn-text">登录</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 创建雪花
+        function createSnowflakes() {
+            const container = document.getElementById('snow-container');
+            const snowflakeCount = 30;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.2;
+                snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                container.appendChild(snowflake);
+            }
+        }
+
+        // 页面加载时创建雪花
+        createSnowflakes();
+
+        // 可用背景图片
+        const backgroundImages = [
+            '/css/image/image_1.jpg',
+            '/css/image/image_2.jpg',
+            '/css/image/image_3.jpg',
+            '/css/image/image_4.jpg',
+            '/css/image/image_5.jpg'
+        ];
+
+        // 随机选择背景图片
+        function setRandomBackground() {
+            const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+            const randomImage = backgroundImages[randomIndex];
+            
+            // 创建 style 元素设置背景
+            const styleId = 'dynamic-background-style';
+            let styleElement = document.getElementById(styleId);
+            if (!styleElement) {
+                styleElement = document.createElement('style');
+                styleElement.id = styleId;
+                document.head.appendChild(styleElement);
+            }
+            styleElement.textContent = `
+                body::before {
+                    background-image: url('${randomImage}') !important;
+                }
+            `;
+        }
+
+        // 设置随机背景
+        setRandomBackground();
+
+        // 页面加载时检查是否已存在有效的 key
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const key = urlParams.get('key');
+            
+            // 如果 URL 中已经有 key，尝试验证并跳转
+            if (key) {
+                document.getElementById('access-key').value = key;
+                verifyKey(key);
+            }
+        });
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const key = document.getElementById('access-key').value.trim();
+            
+            if (!key) {
+                showError('请输入访问密钥');
+                return;
+            }
+            
+            verifyKey(key);
+        }
+
+        async function verifyKey(key) {
+            setLoading(true);
+            hideError();
+            
+            try {
+                // 尝试访问 API 验证 key 是否有效
+                const response = await fetch('/api/logs?key=' + encodeURIComponent(key));
+                
+                // 检查是否被重定向（302 会被 fetch 自动跟随）
+                if (response.redirected) {
+                    showError('访问密钥无效或已过期，请重新获取');
+                    return;
+                }
+                
+                if (response.ok) {
+                    // 显示成功状态
+                    showSuccess();
+                    // Key 有效，跳转到主页面
+                    setTimeout(() => {
+                        window.location.href = '/?key=' + encodeURIComponent(key);
+                    }, 600);
+                    return;
+                }
+                
+                // 处理其他错误状态
+                let errorMsg = '验证失败';
+                if (response.status === 401) {
+                    errorMsg = '访问密钥无效或已过期，请重新获取';
+                } else {
+                    errorMsg = '验证失败，请稍后重试 (错误码: ' + response.status + ')';
+                }
+                showError(errorMsg);
+                
+            } catch (error) {
+                // 网络错误或服务器不可达
+                console.error('验证出错:', error);
+                showError('无法连接到服务器，请检查网络或稍后重试');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function showError(message) {
+            console.log('显示错误:', message);
+            const errorEl = document.getElementById('error-message');
+            const errorText = errorEl.querySelector('.error-text');
+            if (errorEl && errorText) {
+                errorText.textContent = message;
+                errorEl.classList.add('show');
+                // 重新触发动画
+                errorEl.style.animation = 'none';
+                errorEl.offsetHeight; // 触发重排
+                errorEl.style.animation = 'shake 0.5s ease';
+            }
+        }
+
+        function hideError() {
+            const errorEl = document.getElementById('error-message');
+            if (errorEl) {
+                errorEl.classList.remove('show');
+            }
+        }
+
+        function showSuccess() {
+            const spinner = document.getElementById('btn-spinner');
+            const check = document.getElementById('btn-check');
+            const btnText = document.getElementById('btn-text');
+            
+            spinner.classList.remove('show');
+            check.classList.add('show');
+            btnText.textContent = '登录成功';
+        }
+
+        function setLoading(loading) {
+            const btn = document.getElementById('login-btn');
+            const spinner = document.getElementById('btn-spinner');
+            const check = document.getElementById('btn-check');
+            const btnText = document.getElementById('btn-text');
+            const input = document.getElementById('access-key');
+            
+            if (loading) {
+                btn.disabled = true;
+                spinner.classList.add('show');
+                check.classList.remove('show');
+                btnText.textContent = '验证中...';
+                input.disabled = true;
+            } else {
+                btn.disabled = false;
+                spinner.classList.remove('show');
+                check.classList.remove('show');
+                btnText.textContent = '登录';
+                input.disabled = false;
+            }
+        }
+
+        // 输入框回车提交
+        document.getElementById('access-key').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('login-form').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+    <script async src="https://019c84ae-b2ff-7e69-b21a-fc3c8ef42308.spst2.com/ustat.js"></script>
+</body>
+</html>
