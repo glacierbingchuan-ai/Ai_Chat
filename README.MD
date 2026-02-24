@@ -20,8 +20,8 @@ AI_Chat 是基于 WebSocket + LLM 技术开发的恋爱向AI女友聊天机器�
 
 ---
 
-角色卡数据源搭建教程：https://github.com/glacierbingchuan-ai/Character_Cards/tree/main
-插件开发教程：https://github.com/glacierbingchuan-ai/AI_Chat_Plugins
+- 角色卡数据源搭建教程：https://github.com/glacierbingchuan-ai/Character_Cards/tree/main
+- 插件开发教程：https://github.com/glacierbingchuan-ai/AI_Chat_Plugins
 
 ---
 
