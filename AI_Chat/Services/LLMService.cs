@@ -49,7 +49,25 @@ namespace AI_Chat.Services
             try
             {
                 var uri = new Uri(apiUrl);
-                return $"{uri.Scheme}://{uri.Host}:{uri.Port}";
+                string baseUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}";
+                
+                if (!string.IsNullOrEmpty(uri.PathAndQuery))
+                {
+                    string path = uri.PathAndQuery;
+                    
+                    int chatCompletionsIndex = path.IndexOf("/chat/completions", StringComparison.OrdinalIgnoreCase);
+                    if (chatCompletionsIndex >= 0)
+                    {
+                        path = path.Substring(0, chatCompletionsIndex);
+                    }
+                    
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        baseUrl += path;
+                    }
+                }
+                
+                return baseUrl;
             }
             catch
             {

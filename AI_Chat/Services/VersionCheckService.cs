@@ -24,7 +24,7 @@ namespace AI_Chat.Services
     public class VersionCheckService
     {
         private const string VERSION_URL = "https://gitee.com/bingchuankeji/Character_Cards/raw/main/version.json";
-        private const string CURRENT_VERSION = "1.3.0";
+        private const string CURRENT_VERSION = "1.3.1";
         private readonly HttpClient _httpClient;
         private readonly ControlPanelServer _controlPanelServer;
         private VersionCheckResult _lastCheckResult;

@@ -297,12 +297,38 @@ namespace AI_Chat.Plugins
                     }
                 }
 
-                // 通过 PluginManager 获取插件实例，然后访问 Data 设置配置
-                var pluginInstance = _pluginManager.GetPluginInstance(pluginId);
-                if (pluginInstance?.Data != null)
+                // 优先尝试调用插件的 SetConfig 命令，让插件自己处理配置更新
+                // 这样可以确保插件的字段变量与配置保持同步
+                try
                 {
-                    pluginInstance.Data.SetAll(config);
-                    pluginInstance.Data.SaveConfig();
+                    var result = _pluginManager.ExecuteCommand(pluginId, "SetConfig", config);
+                    if (result != null)
+                    {
+                        // 检查命令执行结果
+                        var resultDict = result as Dictionary<string, object>;
+                        if (resultDict != null && resultDict.TryGetValue("Success", out var successObj))
+                        {
+                            bool success = Convert.ToBoolean(successObj);
+                            if (!success)
+                            {
+                                string errorMessage = resultDict.TryGetValue("Error", out var errorObj) 
+                                    ? errorObj?.ToString() 
+                                    : "配置更新失败";
+                                await SendErrorAsync(webSocket, errorMessage);
+                                return;
+                            }
+                        }
+                    }
+                }
+                catch (NotSupportedException)
+                {
+                    // 插件没有实现 SetConfig 命令，回退到直接操作 Data
+                    var pluginInstance = _pluginManager.GetPluginInstance(pluginId);
+                    if (pluginInstance?.Data != null)
+                    {
+                        pluginInstance.Data.SetAll(config);
+                        pluginInstance.Data.SaveConfig();
+                    }
                 }
 
                 await SendMessageAsync(webSocket, "plugin_config_updated", new
