@@ -1,0 +1,3 @@
+C:\Users\39179\Desktop\xinfabu33\Ai_Chat-main\publish\AI_Chat.pdb
+C:\Users\39179\Desktop\xinfabu33\Ai_Chat-main\publish\ILLink\ILLink.Descriptors.LibraryBuild.xml
+C:\Users\39179\Desktop\xinfabu33\Ai_Chat-main\publish\AI_Chat

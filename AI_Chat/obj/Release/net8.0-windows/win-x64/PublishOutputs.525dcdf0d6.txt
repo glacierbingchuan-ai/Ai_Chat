@@ -1,0 +1,3 @@
+C:\Users\39179\Desktop\xinfabu33\Ai_Chat-main\publish\windows\AI_Chat.pdb
+C:\Users\39179\Desktop\xinfabu33\Ai_Chat-main\publish\windows\ILLink\ILLink.Descriptors.LibraryBuild.xml
+C:\Users\39179\Desktop\xinfabu33\Ai_Chat-main\publish\windows\AI_Chat.exe
