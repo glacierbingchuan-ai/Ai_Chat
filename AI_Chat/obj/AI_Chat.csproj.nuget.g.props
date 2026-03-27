@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\39179\.nuget\packages\</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">7.0.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="C:\Users\39179\.nuget\packages\" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' AND '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Content Include="$(NuGetPackageRoot)system.diagnostics.diagnosticsource\9.0.0\contentFiles\any\net8.0\ILLink\ILLink.Descriptors.LibraryBuild.xml" Condition="Exists('$(NuGetPackageRoot)system.diagnostics.diagnosticsource\9.0.0\contentFiles\any\net8.0\ILLink\ILLink.Descriptors.LibraryBuild.xml')">
+      <NuGetPackageId>System.Diagnostics.DiagnosticSource</NuGetPackageId>
+      <NuGetPackageVersion>9.0.0</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <Private>False</Private>
+      <Link>ILLink\ILLink.Descriptors.LibraryBuild.xml</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0-windows' AND '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Content Include="$(NuGetPackageRoot)system.diagnostics.diagnosticsource\9.0.0\contentFiles\any\net8.0\ILLink\ILLink.Descriptors.LibraryBuild.xml" Condition="Exists('$(NuGetPackageRoot)system.diagnostics.diagnosticsource\9.0.0\contentFiles\any\net8.0\ILLink\ILLink.Descriptors.LibraryBuild.xml')">
+      <NuGetPackageId>System.Diagnostics.DiagnosticSource</NuGetPackageId>
+      <NuGetPackageVersion>9.0.0</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <Private>False</Private>
+      <Link>ILLink\ILLink.Descriptors.LibraryBuild.xml</Link>
+    </Content>
+  </ItemGroup>
+  <ImportGroup Condition=" '$(TargetFramework)' == 'net8.0' AND '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.ml\3.0.1\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml\3.0.1\build\netstandard2.0\Microsoft.ML.props')" />
+    <Import Project="$(NuGetPackageRoot)llamasharp.backend.cpu\0.20.0\build\netstandard2.0\LLamaSharp.Backend.Cpu.props" Condition="Exists('$(NuGetPackageRoot)llamasharp.backend.cpu\0.20.0\build\netstandard2.0\LLamaSharp.Backend.Cpu.props')" />
+  </ImportGroup>
+  <ImportGroup Condition=" '$(TargetFramework)' == 'net8.0-windows' AND '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.ml\3.0.1\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml\3.0.1\build\netstandard2.0\Microsoft.ML.props')" />
+    <Import Project="$(NuGetPackageRoot)llamasharp.backend.cpu\0.20.0\build\netstandard2.0\LLamaSharp.Backend.Cpu.props" Condition="Exists('$(NuGetPackageRoot)llamasharp.backend.cpu\0.20.0\build\netstandard2.0\LLamaSharp.Backend.Cpu.props')" />
+  </ImportGroup>
+</Project>

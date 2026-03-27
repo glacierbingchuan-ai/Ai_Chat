@@ -1,0 +1,367 @@
+/* Protocol Connection Screen Styles - Simplified */
+
+.protocol-connection-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0f 0%, #0d1117 50%, #0a0a0f 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+
+.protocol-connection-wrapper {
+    display: flex;
+    gap: 20px;
+    max-width: 800px;
+    width: 90%;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 左侧配置面板 */
+.protocol-config-panel {
+    flex: 1;
+    background: rgba(20, 25, 35, 0.95);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.protocol-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.protocol-panel-header .protocol-icon {
+    font-size: 1.5rem;
+}
+
+.protocol-panel-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.protocol-connection-form .form-group {
+    margin-bottom: 18px;
+}
+
+.protocol-connection-form label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.protocol-connection-form .label-optional {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.protocol-connection-form input[type="text"],
+.protocol-connection-form input[type="password"],
+.protocol-connection-form input[type="number"] {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.protocol-connection-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(74, 144, 226, 0.08);
+}
+
+.protocol-connection-form input::placeholder {
+    color: rgba(160, 174, 192, 0.4);
+}
+
+.input-with-toggle {
+    position: relative;
+}
+
+.input-with-toggle input {
+    padding-right: 45px;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.toggle-password-btn:hover {
+    opacity: 1;
+}
+
+.protocol-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(74, 144, 226, 0.1);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.status-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(74, 144, 226, 0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.protocol-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    color: #ff6b6b;
+    font-size: 0.9rem;
+}
+
+.protocol-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.btn-connect {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--primary-color), #357abd);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-connect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+
+.btn-connect:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 右侧扫描面板 */
+.protocol-scan-panel {
+    flex: 1;
+    background: rgba(20, 25, 35, 0.95);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.scan-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.scan-panel-header .scan-icon {
+    font-size: 1.5rem;
+}
+
+.scan-panel-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    font-weight: 600;
+    flex: 1;
+}
+
+.scan-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+}
+
+.scan-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.scan-status-indicator.stopped .scan-dot {
+    background: #ef4444;
+    animation: none;
+}
+
+.scan-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(74, 144, 226, 0.08);
+    border-radius: 10px;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.scan-status.hidden {
+    display: none;
+}
+
+.scan-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(74, 144, 226, 0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.scan-results {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.scan-results-empty {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.scan-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.scan-result-item:hover {
+    background: rgba(74, 144, 226, 0.1);
+    border-color: rgba(74, 144, 226, 0.3);
+    transform: translateX(5px);
+}
+
+.scan-result-item .result-icon {
+    font-size: 1.3rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 144, 226, 0.15);
+    border-radius: 8px;
+}
+
+.scan-result-item .result-info {
+    flex: 1;
+}
+
+.scan-result-item .result-name {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+}
+
+.scan-result-item .result-address {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+}
+
+.scan-result-item .result-action {
+    padding: 6px 12px;
+    background: var(--primary-color);
+    border-radius: 6px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* 响应式 */
+@media (max-width: 700px) {
+    .protocol-connection-wrapper {
+        flex-direction: column;
+        max-width: 400px;
+    }
+    
+    .protocol-config-panel,
+    .protocol-scan-panel {
+        padding: 25px;
+    }
+    
+    .scan-results {
+        max-height: 250px;
+    }
+}
